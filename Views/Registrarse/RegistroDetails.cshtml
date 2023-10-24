@@ -1,0 +1,31 @@
+﻿@model Registro
+@{
+    ViewData["Title"] = "Registrarse";
+}
+<h1>@ViewData["Title"]</h1>
+
+<form method="post">
+    <div class="mb-3">
+        <label>Nombre</label>
+        <input asp-for="Nombre" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label>Correo</label>
+        <input asp-for="Correo" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label>Contrasena</label>
+        <input asp-for="Contrasena" class="form-control">
+    </div>
+
+    <div class="row col-6">
+        <div class="col-6 col-md-6">
+            <a asp-controller="Producto" asp-action="Index" class="btn btn-outline-secondary">Volver</a>
+        </div>
+        <div class="col-6 col-md-6">
+            <button type="submit" class="btn btn-primary">Aceptar</button>
+        </div>
+    </div>
+
+
+</form>
