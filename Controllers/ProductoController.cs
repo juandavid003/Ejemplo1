@@ -5,6 +5,10 @@ using Ejemplo1.Models;
 using Ejemplo1.Service;
 
 namespace Ejemplo1.Controllers
+
+
+
+
 {
     public class ProductoController : Controller
     {
@@ -15,6 +19,11 @@ namespace Ejemplo1.Controllers
         {
             _apiService = apiService;
         }
+
+
+
+
+
 
 
             // GET: ProductoController

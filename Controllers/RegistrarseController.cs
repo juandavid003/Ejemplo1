@@ -1,15 +1,25 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Ejemplo1.Models;
+using Ejemplo1.Service;
 
 namespace Ejemplo1.Controllers
+
+
+
 {
     public class RegistrarseController : Controller
     {
+        private readonly IAPIService _apiService;
+
+        public RegistrarseController(IAPIService apiService)
+        {
+            _apiService = apiService;
+        }
         // GET: RegistrarseControllercs
         public ActionResult Index()
         {
-            return View();
+            return View("Registrarse");
         }
 
         // GET: RegistrarseControllercs/Details/5
@@ -22,6 +32,7 @@ namespace Ejemplo1.Controllers
         public ActionResult Create()
         {
             return View("RegistroDetails");
+
         }
 
         // POST: RegistrarseControllercs/Create
@@ -39,6 +50,29 @@ namespace Ejemplo1.Controllers
             }
         }
 
+        public IActionResult Registrarse()
+        {
+            return View();
+        }
+        // POST: RegistrarseControllercs/Create
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public async Task<ActionResult> Registrarse(Usuario usuario)
+        {
+            Usuario user = await _apiService.PostRegistrarse(usuario);
+
+            if (user != null)
+            {
+                Usuario userLogin = await _apiService.GetIniciarSesion(user.Correo, user.Contrasena);
+                
+                if(userLogin.Nombre != null)
+                    return RedirectToAction("Index", "Producto");//
+                else
+                    return View();
+            }
+            else
+                return View();
+        }
         // GET: RegistrarseControllercs/Edit/5
         public ActionResult Edit(int id)
         {

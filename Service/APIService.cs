@@ -82,5 +82,51 @@ namespace Ejemplo1.Service
             }
             return new Producto();
         }
+        public async Task<Producto> PostPro(Producto producto)
+        {
+            var content = new StringContent(JsonConvert.SerializeObject(producto), Encoding.UTF8, "application/json");
+            var response = await _httpClient.PostAsync("/api/Producto/", content);
+            if (response.IsSuccessStatusCode)
+            {
+                var json_response = await response.Content.ReadAsStringAsync();
+                Producto producto2 = JsonConvert.DeserializeObject<Producto>(json_response);
+                return producto2;
+            }
+            return new Producto();
+
+
+        }
+        public async Task<Usuario> GetIniciarSesion(String user, String password)
+        {
+            var response = await _httpClient.GetAsync($"/api/Usuarios/{user}/{password}");
+            if (response.IsSuccessStatusCode)
+            {
+                var json_response = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<Usuario>(json_response);
+            }
+            return new Usuario();
+        }
+        public async Task<Usuario> PostRegistrarse(Usuario usuario)
+        {
+            try
+            {
+                var content = new StringContent(JsonConvert.SerializeObject(usuario), Encoding.UTF8, "application/json");
+
+                var response = await _httpClient.PostAsync($"/api/Usuarios/Registrarse", content);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var json_response = await response.Content.ReadAsStringAsync();
+                        return JsonConvert.DeserializeObject<Usuario>(json_response);
+                    }
+                    return new Usuario();
+                
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+           
+        }
     }
 }

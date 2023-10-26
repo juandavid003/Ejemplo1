@@ -1,15 +1,47 @@
 ﻿using Ejemplo1.Models;
+using Ejemplo1.Service;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ejemplo1.Controllers
 {
     public class IniciarSesionController : Controller
+
     {
+        private readonly IAPIService _apiService;
+
+        public IniciarSesionController(IAPIService apiService)
+        {
+            _apiService = apiService;
+        }
+
+
+
         // GET: IniciarSesion
         public ActionResult Index()
+
         {
-            return View("InicioSesionDetails");
+            return View("IniciarSesion");
+        }
+
+
+        public IActionResult IniciarSesion()
+        {
+            return View();
+        }
+        // POST: RegistrarseControllercs/Create
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public async Task<ActionResult> IniciarSesion(Usuario usuario)
+        {
+          
+                Usuario userLogin = await _apiService.GetIniciarSesion(usuario.Correo, usuario.Contrasena);
+
+                if (userLogin != null && userLogin.Nombre != null)
+                    return RedirectToAction("Index", "Producto");
+                else
+                    return RedirectToAction("IniciarSesion", "IniciarSesion");
+
         }
 
         // GET: IniciarSesion/Details/5

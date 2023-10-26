@@ -2,7 +2,7 @@
 @model List<Ejemplo1.Models.Producto>
 
 @{
-    ViewData["Title"] = "Lista Productos";
+    ViewData["Title"] = "Joyas en Stock";
 }
 
 
@@ -19,7 +19,7 @@
             <th scope="col">Nombre</th>
             <th scope="col">Descripción</th>
             <th scope="col">Cantidad</th>
-            <th scope="col">Acciones</th>
+            <th scope="col">Precio</th>
         </tr>
     </thead>
     <tbody>
@@ -30,7 +30,9 @@
                 <th scope="row">@item.IdProducto</th>
                 <td>@item.Nombre</td>
                 <td>@item.Descripcion</td>
-                <td>@item.cantidad</td>
+                <td>@item.Cantidad</td>
+                <td>@item.Precio</td>
+                
                 <td>
 
                     <div class="btn-group" role="group" aria-label="Basic mixed styles example">

@@ -7,8 +7,9 @@
 
         public string Descripcion { get; set; }
 
-        public int cantidad { get; set; }
+        public int Cantidad { get; set; }
+        public float Precio { get; set; }
 
-       
+
     }
 }

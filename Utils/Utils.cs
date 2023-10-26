@@ -11,14 +11,17 @@ namespace Ejemplo1.Utils
                 IdProducto=1,
                 Nombre="Producto 1", 
                 Descripcion="Descripcion 1",
-                cantidad=1 
-            },
+                Cantidad=1,
+                Precio=1,
+            }
 
-            new Producto{
-                IdProducto=2,
-                Nombre = "Producto 2", 
-                Descripcion="Descripcion 2",
-                cantidad=2 
+        };
+
+        static public List<IniciarSesion> iniciarSesions = new List<IniciarSesion>()
+        {
+            new IniciarSesion{
+                Correo="rjuandavid2002@gmail.com",
+                Contrasena="El_gatofly2" 
             }
 
         };
