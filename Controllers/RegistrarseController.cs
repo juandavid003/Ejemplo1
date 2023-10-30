@@ -16,6 +16,11 @@ namespace Ejemplo1.Controllers
         {
             _apiService = apiService;
         }
+
+
+
+
+
         // GET: RegistrarseControllercs
         public ActionResult Index()
         {

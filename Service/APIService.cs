@@ -11,7 +11,8 @@ namespace Ejemplo1.Service
         public static string _baseUrl;
         public HttpClient _httpClient;
 
-        public APIService() {
+        public APIService()
+        {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json")
@@ -19,6 +20,7 @@ namespace Ejemplo1.Service
             _baseUrl = builder.GetSection("ApiSettings:BaseUrl").Value;
             _httpClient = new HttpClient();
             _httpClient.BaseAddress = new Uri(_baseUrl);
+        
         }
 
 
@@ -113,20 +115,54 @@ namespace Ejemplo1.Service
                 var content = new StringContent(JsonConvert.SerializeObject(usuario), Encoding.UTF8, "application/json");
 
                 var response = await _httpClient.PostAsync($"/api/Usuarios/Registrarse", content);
-                    if (response.IsSuccessStatusCode)
-                    {
-                        var json_response = await response.Content.ReadAsStringAsync();
-                        return JsonConvert.DeserializeObject<Usuario>(json_response);
-                    }
-                    return new Usuario();
-                
+                if (response.IsSuccessStatusCode)
+                {
+                    var json_response = await response.Content.ReadAsStringAsync();
+                    return JsonConvert.DeserializeObject<Usuario>(json_response);
+                }
+                return new Usuario();
+
             }
             catch (Exception e)
             {
 
                 throw;
             }
-           
+
+        }
+
+        public async Task<List<Compra>> GetCompras()
+        {
+            var response = await _httpClient.GetAsync("/api/Compra");
+            if (response.IsSuccessStatusCode)
+            {
+                var json_response = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<List<Compra>>(json_response);
+            }
+            return new List<Compra>();
+        }
+
+        public async Task<Compra> PostCompra(Compra compra)
+        {
+            compra.FechaCompra = DateTime.Now;
+            var content = new StringContent(JsonConvert.SerializeObject(compra), Encoding.UTF8, "application/json");
+            var response = await _httpClient.PostAsync("/api/Compra", content);
+            if (response.IsSuccessStatusCode)
+            {
+                var json_response = await response.Content.ReadAsStringAsync();
+                Compra compraObj = JsonConvert.DeserializeObject<Compra>(json_response);
+                return compraObj;
+            }
+            return new Compra();
+        }
+        public async Task<bool> DeleteCompra(int IdCompra)
+        {
+            var response = await _httpClient.DeleteAsync($"/api/Compra/{IdCompra}");
+            if (response.StatusCode == HttpStatusCode.NoContent)
+            {
+                return true;
+            }   
+            return false;
         }
     }
 }

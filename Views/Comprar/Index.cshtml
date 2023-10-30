@@ -1,0 +1,50 @@
+﻿@model List<Ejemplo1.Models.Compra>
+
+@{
+    ViewData["Title"] = "Joyas en Stock";
+}
+
+<body style="background-color: #d0d0d0;">
+   
+
+<h1>@ViewData["Title"]</h1>
+<button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Create", "Comprar")'">Comprar</button>
+
+
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Codigo</th>
+            <th scope="col">Producto</th>
+            <th scope="col">Cantidad</th>
+            <th scope="col">Monto</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+
+            <tr>
+                <th scope="row">@item.Codigo</th>
+                <td>@item.Nombre</td>
+                <td>@item.Cantidad</td>
+                <td>@item.PrecioTotal</td>
+
+                <td>
+
+                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                        <a onclick="location.href='@Url.Action("Delete", "Comprar",item)'" class="btn btn-warning"><i class="bi bi-trash-fill"></i></a>
+
+                    </div>
+
+                </td>
+            </tr>
+
+        }
+    </tbody>
+</table>
+</body>
+
+
+<p>Esta es la vista de la lista de compras</p>

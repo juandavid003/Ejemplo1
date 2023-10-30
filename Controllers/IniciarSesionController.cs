@@ -5,112 +5,135 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Ejemplo1.Controllers
 {
-    public class IniciarSesionController : Controller
+	public class IniciarSesionController : Controller
 
-    {
-        private readonly IAPIService _apiService;
+	{
+		private readonly IAPIService _apiService;
 
-        public IniciarSesionController(IAPIService apiService)
-        {
-            _apiService = apiService;
-        }
+		public IUserService _userService;
 
+		public bool userLogin { get; set; }
 
+		public IniciarSesionController(IAPIService apiService, IUserService userService)
+		{
+			_apiService = apiService;
+			_userService = userService;
+			userLogin = true;
 
-        // GET: IniciarSesion
-        public ActionResult Index()
-
-        {
-            return View("IniciarSesion");
-        }
+		}
 
 
-        public IActionResult IniciarSesion()
-        {
-            return View();
-        }
-        // POST: RegistrarseControllercs/Create
-        [HttpPost]
-        //[ValidateAntiForgeryToken]
-        public async Task<ActionResult> IniciarSesion(Usuario usuario)
-        {
-          
-                Usuario userLogin = await _apiService.GetIniciarSesion(usuario.Correo, usuario.Contrasena);
 
-                if (userLogin != null && userLogin.Nombre != null)
-                    return RedirectToAction("Index", "Producto");
-                else
-                    return RedirectToAction("IniciarSesion", "IniciarSesion");
+		// GET: IniciarSesion
+		public ActionResult Index()
 
-        }
+		{
+			return View("IniciarSesion");
+		}
 
-        // GET: IniciarSesion/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
 
-        // GET: IniciarSesion/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+		public IActionResult IniciarSesion()
+		{
+			return View();
+		}
+		// POST: RegistrarseControllercs/Create
+		[HttpPost]
+		//[ValidateAntiForgeryToken]
+		public async Task<ActionResult> IniciarSesion(Usuario usuario)
+		{
 
-        // POST: IniciarSesion/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+			Usuario userLogin = await _apiService.GetIniciarSesion(usuario.Correo, usuario.Contrasena);
 
-        // GET: IniciarSesion/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
+			if (userLogin != null && userLogin.Nombre != null)
+			{
+				_userService.usuarioGlobal = userLogin;
 
-        // POST: IniciarSesion/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+				if(userLogin.Nombre=="Admin")
+				return RedirectToAction("Index", "Producto");
 
-        // GET: IniciarSesion/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
+				else
+					return RedirectToAction("Index", "Comprar");
 
-        // POST: IniciarSesion/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-    }
+			}
+			else
+				return RedirectToAction("IniciarSesion", "IniciarSesion");
+
+		}
+
+		public IActionResult CerrarSesion()
+		{
+			_userService.usuarioGlobal = new Usuario();
+			return RedirectToAction("IniciarSesion", "IniciarSesion");
+		}
+		
+
+		// GET: IniciarSesion/Details/5
+		public ActionResult Details(int id)
+		{
+			return View();
+		}
+
+		// GET: IniciarSesion/Create
+		public ActionResult Create()
+		{
+			return View();
+		}
+
+		// POST: IniciarSesion/Create
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult Create(IFormCollection collection)
+		{
+			try
+			{
+				return RedirectToAction(nameof(Index));
+			}
+			catch
+			{
+				return View();
+			}
+		}
+
+		// GET: IniciarSesion/Edit/5
+		public ActionResult Edit(int id)
+		{
+			return View();
+		}
+
+		// POST: IniciarSesion/Edit/5
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult Edit(int id, IFormCollection collection)
+		{
+			try
+			{
+				return RedirectToAction(nameof(Index));
+			}
+			catch
+			{
+				return View();
+			}
+		}
+
+		// GET: IniciarSesion/Delete/5
+		public ActionResult Delete(int id)
+		{
+			return View();
+		}
+
+		// POST: IniciarSesion/Delete/5
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult Delete(int id, IFormCollection collection)
+		{
+			try
+			{
+				return RedirectToAction(nameof(Index));
+			}
+			catch
+			{
+				return View();
+			}
+		}
+	}
 }

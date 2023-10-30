@@ -1,28 +1,31 @@
 ﻿
-@model Producto
+@model Compra
 @{
-    ViewData["Title"] = "Crear Productos";
+    ViewData["Title"] = "Nueva Compra";
+    
 }
 <body style="background-color: #cec0b3;">
 <h1>@ViewData["Title"]</h1>
 
 <form method="post">
     <div class="mb-3">
-        <label>Nombre</label>
-        <input asp-for="Nombre" class="form-control">
+        <label>Codigo</label>
+        <input asp-for="Codigo" class="form-control">
     </div>
     <div class="mb-3">
-        <label>Descripción</label>
-        <input asp-for="Descripcion" class="form-control">
+        <label>Producto</label>
+       @*  <input asp-for="Producto" class="form-control"> *@
+
+        <select asp-for="IdProducto" asp-items="Model.SelectList" class="form-control">
+            <option value="">-- Select an option --</option>
+        </select>
+
     </div>
     <div class="mb-3">
         <label>Cantidad</label>
         <input asp-for="Cantidad" class="form-control">
     </div>
-    <div class="mb-3">
-        <label>Precio</label>
-        <input asp-for="Precio" class="form-control">
-    </div>
+   
   
 
     <div class="row col-6">
@@ -37,4 +40,5 @@
     
 </form>
 </body>
+
 <p>Esta es la vista para crear productos</p>
