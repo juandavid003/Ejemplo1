@@ -1,0 +1,45 @@
+﻿﻿
+@model List<Ejemplo1.Models.Compra>
+
+@{
+	ViewData["Title"] = "Compras";
+}
+
+<body style="background-color: #d0d0d0;">
+
+
+
+
+	<h1>@ViewData["Title"]</h1>
+
+
+
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th scope="col">Id</th>
+				<th scope="col">Nombre</th>
+				<th scope="col">Producto</th>
+				<th scope="col">Cantidad</th>
+				<th scope="col">Precio</th>
+				<th scope="col">Fecha Compra</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model)
+			{
+
+				<tr>
+					<th scope="row">@item.IdProducto</th>
+					<td>@item.Comprador</td>
+					<td>@item.Nombre</td>
+					<td>@item.Cantidad</td>
+					<td>@item.PrecioTotal</td>
+					<td>@item.FechaCompra</td>
+				</tr>
+
+			}
+		</tbody>
+	</table>
+</body>
+

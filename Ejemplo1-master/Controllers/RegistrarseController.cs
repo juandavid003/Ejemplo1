@@ -71,7 +71,7 @@ namespace Ejemplo1.Controllers
                 Usuario userLogin = await _apiService.GetIniciarSesion(user.Correo, user.Contrasena);
                 
                 if(userLogin.Nombre != null)
-                    return RedirectToAction("Index", "Producto");//
+                    return RedirectToAction("Index", "Comprar");//
                 else
                     return View();
             }

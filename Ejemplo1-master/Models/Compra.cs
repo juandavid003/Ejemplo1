@@ -10,6 +10,7 @@ namespace Ejemplo1.Models
         public int Codigo { get; set; }
         public int IdProducto { get; set; }
         public string Nombre { get; set; }
+        public string Comprador { get; set; }
 
         public int Cantidad { get; set; }
 
@@ -21,3 +22,4 @@ namespace Ejemplo1.Models
 
     }
 }
+
